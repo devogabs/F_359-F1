@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+# Se os dados forem muito pesados (>100MB), ignore a pasta data/ também
+# data/
