@@ -36,7 +36,7 @@ def process_oscilloscope_data(file_path):
         return None
 
 
-def calculate_transmittance(data):
+def calculate_transmittance_corrected(data):
     """
     Calcula a transmitância (ganho) da rede de células LC.
     Args:
@@ -46,9 +46,12 @@ def calculate_transmittance(data):
         pd.DataFrame: DataFrame contendo as colunas ['Tempo', 'Transmittance'].
     """
     try:
-        # Calcula a transmitância como V_out / V_in
-        data['Transmittance'] = data['V_out'] / data['V_in']
-        return data[['Tempo', 'Transmittance']]
+        # Calcula a transmitância como a razão entre as amplitudes de saída e entrada
+        amplitude_in = data['V_in'].abs().max()
+        amplitude_out = data['V_out'].abs().max()
+
+        transmitancia = amplitude_out / amplitude_in if amplitude_in != 0 else 0
+        return transmitancia
     except Exception as e:
         print(f"Erro ao calcular a transmitância: {e}")
         return None
@@ -82,7 +85,7 @@ if __name__ == "__main__":
 
     if dados is not None:
         # Calcula a transmitância
-        transmittance_data = calculate_transmittance(dados)
+        transmittance_data = calculate_transmittance_corrected(dados)
 
         # Gera o gráfico da resposta temporal
         plot(dados)
