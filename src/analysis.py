@@ -90,8 +90,3 @@ if __name__ == "__main__":
         # Gera o gráfico da resposta temporal
         plot(dados)
 
-# TO-DO LIST:
-# Incluir incertezas nas medições de V_in e V_out, propagando essas incertezas para a transmitância.
-# Implementar uma função para calcular a resposta em frequência da rede LC, utilizando a transformada de Fourier dos sinais de entrada e saída.
-# Adicionar a capacidade de comparar os resultados experimentais com modelos teóricos (calcular a resposta teórica da rede LC e plotar junto com os dados experimentais).
-# sla vou dormir
