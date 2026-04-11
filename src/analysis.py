@@ -78,7 +78,7 @@ def plot(data):
 
 if __name__ == "__main__":
     # Caminho para o arquivo .csv exportado do osciloscópio
-    file_path = 'dados_osciloscopio.csv'
+    file_path = './data/dados_osciloscopio.csv'
 
     # Processa os dados do osciloscópio
     dados = process_oscilloscope_data(file_path)
