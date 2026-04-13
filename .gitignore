@@ -1,9 +1,9 @@
-__pycache__/
+src\utils\__pycache__
 *.pyc
 .ipynb_checkpoints/
 .DS_Store
 # Se os dados forem muito pesados (>100MB), ignore a pasta data/ também
-# data/
+data/
 structure.md
 dados_osciloscopio.csv
 data/data_teste.py
