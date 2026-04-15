@@ -15,7 +15,7 @@ def read_oscillator_channel_output(path: str)-> tuple[dict,pd.DataFrame]:
     """
 
     df = pd.read_csv(path, header=None)
-
+    
     metadados = df[[0,1]].dropna()
     metadados_dict = dict(zip(metadados[0],metadados[1]))
 
