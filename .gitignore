@@ -5,6 +5,8 @@
 # Se os dados forem muito pesados (>100MB), ignore a pasta data/ também
 data/
 structure.md
-dados_osciloscopio.csv
-data/data_teste.py
 teste.py
+.venv/
+venv/
+.env/
+env/
