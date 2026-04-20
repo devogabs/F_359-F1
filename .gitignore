@@ -1,4 +1,4 @@
-src\utils\__pycache__
+**/__pycache__/
 *.pyc
 .ipynb_checkpoints/
 .DS_Store
