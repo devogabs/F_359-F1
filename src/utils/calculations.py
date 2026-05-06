@@ -3,7 +3,7 @@ import numpy as np
 import scipy
 import pandas as pd
 
-def data_FFT(metadata: list, data: pd.Dataframe) -> list[list[float]]:
+def data_FFT(metadata: list, data: pd.DataFrame) -> list[list[float]]:
     
     """
     Essa função recebe os metadados e dados do oscilador e retorna os parametros ótimos do fit de uma função seno e a estimativa aproximada
