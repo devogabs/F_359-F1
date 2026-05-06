@@ -1,7 +1,9 @@
-src\utils\__pycache__
+**/__pycache__/
 *.pyc
 .ipynb_checkpoints/
 .DS_Store
 data/
 structure.md
-utils/plotting.py
+dados_osciloscopio.csv
+data/data_teste.py
+teste.py
