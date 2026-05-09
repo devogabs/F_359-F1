@@ -1,22 +1,40 @@
-import numpy
-import pandas
+# utils/calculations.py
+import numpy as np
+import scipy
+import pandas as pd
 
-def calculate_transmittance_corrected(data):
+def data_FFT(metadata: list, data: pd.DataFrame) -> list[list[float]]:
+    
     """
-    Calcula a transmitância (ganho) da rede de células LC.
+    Essa função recebe os metadados e dados do oscilador e retorna os parametros ótimos do fit de uma função seno e a estimativa aproximada
+    da covariancia dos parametros. 
+
     Args:
-        data (pd.DataFrame): DataFrame contendo as colunas ['Tempo', 'V_in', 'V_out'].
-
-    Returns:
-        pd.DataFrame: DataFrame contendo as colunas ['Tempo', 'Transmittance'].
+    - metadata: Metadados da médida do osciloscopio.
+    - data: Dados da médida do osciloscopio.
+    Return:
+    - popt: parametros ótimos do fit da função seno
+    - pcov: estimativa aproximada da covariancia dos parametros.
     """
-    try:
-        # Calcula a transmitância como a razão entre as amplitudes de saída e entrada
-        amplitude_in = data['V_in'].abs().max()
-        amplitude_out = data['V_out'].abs().max()
 
-        transmitancia = amplitude_out / amplitude_in if amplitude_in != 0 else 0
-        return transmitancia
-    except Exception as e:
-        print(f"Erro ao calcular a transmitância: {e}")
-        return None
+    def sin_function(x,amplitude,omega,phase,offset):
+            return amplitude * np.sin((x * omega) + phase) + offset
+    
+    y = (data["signal"] - float(metadata["Vertical Offset"])) / float(metadata["Vertical Scale"])            
+        
+    N = len(y)
+    x_indices = np.arange(N)
+
+    guess_offset = np.mean(y)
+    yf = scipy.fft.rfft(y - guess_offset)
+    xf = scipy.fft.rfftfreq(N, d=1.0)
+    idx_max = np.argmax(np.abs(yf))
+    
+    guess_omega_idx = 2 * np.pi * xf[idx_max]
+    guess_amplitude = (np.max(y) - np.min(y)) / 2
+
+    p0 = [guess_amplitude, guess_omega_idx, 0, guess_offset]
+    
+    popt, pcov = scipy.optimize.curve_fit(sin_function,x_indices,y,p0=p0)
+    
+    return popt, pcov

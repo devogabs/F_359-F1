@@ -1,4 +1,5 @@
 # __init__.py
 
 from .analysis import read_oscillator_channel_output
-from .plotting import plot_oscillator_graph
+from .calculations import data_FFT
+#from .plotting import plot_oscillator_graph, plot_oscillator_graph_curve

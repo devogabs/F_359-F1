@@ -1,4 +1,4 @@
-# analysis.py
+# util/analysis.py
 
 import pandas as pd
 
@@ -23,4 +23,4 @@ def read_oscillator_channel_output(path: str)-> tuple[dict,pd.DataFrame]:
     dados = dados.astype(float)
     dados.columns = ["time","signal"]
 
-    return metadados_dict, dados    
+    return metadados_dict, dados
