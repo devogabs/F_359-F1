@@ -68,7 +68,7 @@ def amplitude_Uncertainty(popt: list, pcov: list[list]):
      return ampU
 
 def frequencies_Error(frequency: float) -> float:
-     f_Delta = frequency * (100/1000)
+     f_Delta = frequency * (1/10000000)
      f_Error = f_Delta/np.sqrt(3)
 
      return f_Error
