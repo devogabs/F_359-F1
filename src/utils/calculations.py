@@ -38,3 +38,42 @@ def data_FFT(metadata: list, data: pd.DataFrame) -> list[list[float]]:
     popt, pcov = scipy.optimize.curve_fit(sin_function,x_indices,y,p0=p0)
     
     return popt, pcov
+
+def data_Uncertainty(data: pd.DataFrame) -> list[float]:
+    scale_Uncertainty = ((8/256)/np.sqrt(12))**2
+    vertical_Uncertainty = []
+    osc_Uncertainty = []
+
+    for i in data["signal"]:
+        Uv = (3*i)/100
+        vertical_Uncertainty.append(Uv)
+
+    for i in vertical_Uncertainty:
+        Ut = np.sqrt((i**2) + scale_Uncertainty)
+        osc_Uncertainty.append(Ut)
+
+    return osc_Uncertainty
+
+def amplitude_Uncertainty(popt: list, pcov: list[list]):
+     amplitude = popt[0]
+     stat_Uncertainty = pcov[0][0]
+
+     vertical_gain = (3*amplitude)/100
+     scale_Uncertainty = ((8/256)/np.sqrt(12))
+
+     instrumental_Uncertainty = np.sqrt((vertical_gain**2) + (scale_Uncertainty**2))
+
+     ampU = np.sqrt((stat_Uncertainty**2) + (instrumental_Uncertainty**2))
+
+     return ampU
+
+def frequencies_Error(frequency: float) -> float:
+     f_Delta = frequency * (100/1000)
+     f_Error = f_Delta/np.sqrt(3)
+
+     return f_Error
+
+
+
+        
+

@@ -17,10 +17,14 @@ number_of_cells = len(cells_data_directorys) * 2
 
 data = []
 amplitudes = []
+amplitudes_Error = []
+frequencies_Error = []
 
 for i in range(number_of_cells):
     data.append([])
     amplitudes.append([])
+    amplitudes_Error.append([])
+    frequencies_Error.append([])
 
 cell_idx = 0
 
@@ -49,18 +53,24 @@ for cells_directory_idx, cells_data_directory in enumerate(cells_data_directorys
 
 for cell_idx, cell in enumerate(data):
     for data_from_cell in cell:
-        popt, _ = utils.data_FFT(data_from_cell[0], data_from_cell[1])
+        popt, pcov = utils.data_FFT(data_from_cell[0], data_from_cell[1])
+        ampU = utils.amplitude_Uncertainty(popt,pcov)
         amplitudes[cell_idx].append(np.abs(popt[0]))
+        amplitudes_Error[cell_idx].append(ampU)
 
 step = 100
 frequencies = np.arange(100, 1000 + step, step)
+
+for i in range(len(frequencies)):
+    freqU = utils.frequencies_Error(frequencies[i])
+    frequencies_Error[i].append(freqU)
 
 ## Plotagem da amplitude em função da frequencia da última célula.
 fig, axs = plt.subplots(2,int(number_of_cells/2))
 for i in range(2):
     for j in range(int(number_of_cells/2)):
         cell_number = int((i * number_of_cells/2) + j)
-        axs[i,j].plot(frequencies,amplitudes[cell_number], 'o', markersize=5)
+        axs[i,j].plot.errorbar(frequencies,amplitudes[cell_number],frequencies_Error,amplitudes_Error[cell_number], 'o', markersize=5)
         axs[i,j].set_title(f"Célula {cell_number}")
     
     for ax in axs.flat:
