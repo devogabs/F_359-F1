@@ -75,3 +75,5 @@ for i in range(2):
         ax.grid(color='black',linestyle='--',alpha = 0.3)
 plt.tight_layout()
 plt.show()
+
+print(frequencies_Error)
