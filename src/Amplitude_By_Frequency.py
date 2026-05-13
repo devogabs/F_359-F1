@@ -35,14 +35,12 @@ for cells_directory_idx, cells_data_directory in enumerate(cells_data_directorys
     
     number_of_outputs_files = len(output_files_directorys)
 
-    print(cell_idx)
     for output_directory_idx, output_files_directory in enumerate(output_files_directorys):
         output_file_path = os.path.join(cell_directory_path, output_files_directory, "F{:04d}CH1.CSV".format(output_directory_idx)) 
         OutputMetadata, OutputData = utils.read_oscillator_channel_output(output_file_path)
         data[cell_idx].append([OutputMetadata, OutputData])
 
     cell_idx += 1
-    print(cell_idx)
     for output_directory_idx, output_files_directory in enumerate(output_files_directorys):
         output_file_path = os.path.join(cell_directory_path, output_files_directory, "F{:04d}CH2.CSV".format(output_directory_idx))
         OutputMetadata, OutputData = utils.read_oscillator_channel_output(output_file_path)
@@ -70,12 +68,10 @@ for i in range(2):
     for j in range(int(number_of_cells/2)):
         cell_number = int((i * number_of_cells/2) + j)
         axs[i,j].errorbar(frequencies,amplitudes[cell_number],amplitudes_Error[cell_number], frequencies_Error, 'o', markersize=5)
-        axs[i,j].set_title(f"Célula {cell_number}")
+        axs[i,j].set_title(f"Nó {cell_number+1}")
     
     for ax in axs.flat:
         ax.set(xlabel='Frequência (kHz)', ylabel='Amplitude (V)')
-
-    for ax in axs.flat:
-        ax.label_outer()
-
+        ax.grid(color='black',linestyle='--',alpha = 0.3)
+plt.tight_layout()
 plt.show()
