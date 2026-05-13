@@ -24,7 +24,6 @@ for i in range(number_of_cells):
     data.append([])
     amplitudes.append([])
     amplitudes_Error.append([])
-    frequencies_Error.append([])
 
 cell_idx = 0
 
@@ -63,14 +62,14 @@ frequencies = np.arange(100, 1000 + step, step)
 
 for i in range(len(frequencies)):
     freqU = utils.frequencies_Error(frequencies[i])
-    frequencies_Error[i].append(freqU)
+    frequencies_Error.append(freqU)
 
 ## Plotagem da amplitude em função da frequencia da última célula.
 fig, axs = plt.subplots(2,int(number_of_cells/2))
 for i in range(2):
     for j in range(int(number_of_cells/2)):
         cell_number = int((i * number_of_cells/2) + j)
-        axs[i,j].plot.errorbar(frequencies,amplitudes[cell_number],frequencies_Error,amplitudes_Error[cell_number], 'o', markersize=5)
+        axs[i,j].errorbar(frequencies,amplitudes[cell_number],amplitudes_Error[cell_number], frequencies_Error, 'o', markersize=5)
         axs[i,j].set_title(f"Célula {cell_number}")
     
     for ax in axs.flat:

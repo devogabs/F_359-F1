@@ -58,12 +58,12 @@ def amplitude_Uncertainty(popt: list, pcov: list[list]):
      amplitude = popt[0]
      stat_Uncertainty = pcov[0][0]
 
-     vertical_gain = (3*amplitude)/100
+     vertical_gain = 0.03 * amplitude
      scale_Uncertainty = ((8/256)/np.sqrt(12))
 
      instrumental_Uncertainty = np.sqrt((vertical_gain**2) + (scale_Uncertainty**2))
 
-     ampU = np.sqrt((stat_Uncertainty**2) + (instrumental_Uncertainty**2))
+     ampU = np.sqrt(stat_Uncertainty + (instrumental_Uncertainty**2))
 
      return ampU
 
