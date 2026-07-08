@@ -31,6 +31,7 @@ F_359-F1/
 ├── README.md           # Você está aqui!
 ├── requirements.txt    # Lista de dependências (pandas, numpy, matplotlib)
 └── .gitignore          # Arquivos que o git deve ignorar
+```
 
 ## To-do list (próximos passos):
 1. Incluir incertezas nas medições de V_in e V_out, propagando essas incertezas para a transmitância.
