@@ -5,7 +5,9 @@ import os
 from matplotlib import pyplot as plt
 import numpy as np
 
-# 100 kHz -> 1 MHz (step: 100kHz)
+np.set_printoptions(legacy='1.25')
+
+# 100 kHz -> 1 MHz (step: 50kHz)
 
 # Obtem o path da pasta de dados que sera analisada.
 with open("info.txt", encoding="utf-8") as f:
@@ -15,38 +17,40 @@ with open("info.txt", encoding="utf-8") as f:
 cells_data_directorys = os.listdir(data_path)
 number_of_cells = len(cells_data_directorys) * 2
 
-data = []
+#data = []
 amplitudes = []
 amplitudes_Error = []
 frequencies_Error = []
 
 for i in range(number_of_cells):
-    data.append([])
+#    data.append([])
     amplitudes.append([])
     amplitudes_Error.append([])
 
-cell_idx = 0
+#cell_idx = 0
+#
+#for cells_directory_idx, cells_data_directory in enumerate(cells_data_directorys):
+#
+#    cell_directory_path = os.path.join(data_path,cells_data_directory) 
+#    
+#    output_files_directorys = os.listdir(cell_directory_path)
+#    
+#    number_of_outputs_files = len(output_files_directorys)
+#
+#    for output_directory_idx, output_files_directory in enumerate(output_files_directorys):
+#        output_file_path = os.path.join(cell_directory_path, output_files_directory, "F{:04d}CH1.CSV".format(output_directory_idx)) 
+#        OutputMetadata, OutputData = utils.read_oscillator_channel_output(output_file_path)
+#        data[cell_idx].append([OutputMetadata, OutputData])
+#
+#    cell_idx += 1
+#    for output_directory_idx, output_files_directory in enumerate(output_files_directorys):
+#        output_file_path = os.path.join(cell_directory_path, output_files_directory, "F{:04d}CH2.CSV".format(output_directory_idx))
+#        OutputMetadata, OutputData = utils.read_oscillator_channel_output(output_file_path)
+#        data[cell_idx].append([OutputMetadata,OutputData])
+#
+#    cell_idx += 1
 
-for cells_directory_idx, cells_data_directory in enumerate(cells_data_directorys):
-
-    cell_directory_path = os.path.join(data_path,cells_data_directory) 
-    
-    output_files_directorys = os.listdir(cell_directory_path)
-    
-    number_of_outputs_files = len(output_files_directorys)
-
-    for output_directory_idx, output_files_directory in enumerate(output_files_directorys):
-        output_file_path = os.path.join(cell_directory_path, output_files_directory, "F{:04d}CH1.CSV".format(output_directory_idx)) 
-        OutputMetadata, OutputData = utils.read_oscillator_channel_output(output_file_path)
-        data[cell_idx].append([OutputMetadata, OutputData])
-
-    cell_idx += 1
-    for output_directory_idx, output_files_directory in enumerate(output_files_directorys):
-        output_file_path = os.path.join(cell_directory_path, output_files_directory, "F{:04d}CH2.CSV".format(output_directory_idx))
-        OutputMetadata, OutputData = utils.read_oscillator_channel_output(output_file_path)
-        data[cell_idx].append([OutputMetadata,OutputData])
-
-    cell_idx += 1
+data = utils.read_pack_data(data_path)
 
 for cell_idx, cell in enumerate(data):
     for data_from_cell in cell:
@@ -55,7 +59,7 @@ for cell_idx, cell in enumerate(data):
         amplitudes[cell_idx].append(np.abs(popt[0]))
         amplitudes_Error[cell_idx].append(ampU)
 
-step = 100
+step = 50
 frequencies = np.arange(100, 1000 + step, step)
 
 for i in range(len(frequencies)):
@@ -72,8 +76,10 @@ for i in range(2):
     
     for ax in axs.flat:
         ax.set(xlabel='Frequência (kHz)', ylabel='Amplitude (V)')
+        ax.set_xlim([0,1100])
+        ax.set_ylim([0,6])
         ax.grid(color='black',linestyle='--',alpha = 0.3)
+
 plt.tight_layout()
 plt.show()
 
-print(frequencies_Error)
