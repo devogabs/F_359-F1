@@ -20,7 +20,7 @@ Este projeto automatiza o processamento de dados de osciloscópio para caracteri
 ## Estrutura do repositório:
 ```
 F_359-F1/
-├── src/                # O código "oficial" (seu main.py e módulos)     
+├── src/                     
 │   ├── Amplitude_By_Frequency.py # Script de análise por frequência
 │   ├── main.py         # Ponto de entrada/auxiliares
 │   └── utils/          # Funções utilitárias organizadas em pacote
@@ -28,10 +28,9 @@ F_359-F1/
 │       ├── analysis.py     # Funções de FFT e Ganho
 │       ├── calculations.py # Cálculo da FFT e incertezas
 │       └── plotting.py     # Funções de geração de gráficos
-├── README.md           # A "capa" do seu projeto
-├── requirements.txt    # Lista de bibliotecas (pandas, numpy, matplotlib)
-└── .gitignore          # Arquivos que o git deve ignorar (ex: __pycache__/)
-```
+├── README.md           # Você está aqui!
+├── requirements.txt    # Lista de dependências (pandas, numpy, matplotlib)
+└── .gitignore          # Arquivos que o git deve ignorar
 
 ## To-do list (próximos passos):
 1. Incluir incertezas nas medições de V_in e V_out, propagando essas incertezas para a transmitância.
