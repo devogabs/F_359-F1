@@ -20,8 +20,6 @@ Este projeto automatiza o processamento de dados de osciloscópio para caracteri
 ## Estrutura do repositório:
 ```
 F_359-F1/
-├── data/               # Arquivos .csv brutos do osciloscópio
-├── notebooks/          # Estudos dos matemáticos (Jupyter Notebooks)
 ├── src/                # O código "oficial" (seu main.py e módulos)     
 │   ├── Amplitude_By_Frequency.py # Script de análise por frequência
 │   ├── main.py         # Ponto de entrada/auxiliares
