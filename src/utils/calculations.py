@@ -73,7 +73,33 @@ def frequencies_Error(frequency: float) -> float:
 
      return f_Error
 
+def dispersion_Relation(frequencies: list, Indutance_L: float, Capacitance_C: float, Cut_frequence: float):
+    Dispersion = []
+    
+    for i in frequencies:
+        if i <= Cut_frequence:
+            k = np.arccos(1 - (2 * (np.pi**2) * (i**2) * Indutance_L * Capacitance_C))
+            Dispersion.append(k)
+        else:
+            Dispersion.append(0)
+    
+    return Dispersion
 
+def theorical_Amplitude(Dispersion: list, V_in: list):
+    index_j = [2,3,4,5,6,7,8]
+    theorical_Amplitudes = []
 
+    for j in index_j:
+        theoretical_V = []
+
+        for i in Dispersion:
+            if i != 0:
+                V_j = np.abs(V_in[Dispersion.index(i)]*((np.sin(i * (9-j)))/(np.sin(8*i))))
+                theoretical_V.append(V_j)
+            else:
+                theoretical_V.append(0)
         
+        theorical_Amplitudes.append(theoretical_V)
+    
+    return theorical_Amplitudes
 
